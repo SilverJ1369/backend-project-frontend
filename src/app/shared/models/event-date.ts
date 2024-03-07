@@ -1,12 +1,12 @@
 export class EventDate {
 
   constructor(
-    id: number,
-    dateKey: string,
-    year: number,
-    month: number,
-    day: number,
-    isAD: boolean,
-    modifier: string
+    public id: number,
+    public dateKey: string,
+    public year: number,
+    public month: number,
+    public day: number,
+    public isAD: boolean,
+    public modifier: string
   ) {}
 }

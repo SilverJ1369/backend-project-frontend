@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { MainTopic } from '../../shared/models/main-topic';
+import { TimelineEvents } from '../../shared/models/timeline-events';
+import { TimelineService } from '../services/timeline.service';
 
 @Component({
   selector: 'app-timeline',
@@ -8,31 +11,75 @@ import * as d3 from 'd3';
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss'
 })
-export class TimelineComponent {
+export class TimelineComponent implements OnInit{
+
+  constructor(private timelineService: TimelineService) { }
+
+  ngOnInit(): void {
+    this.timelineService.getMainTopics().subscribe({
+      next: (mainTopics: MainTopic[]) => {
+        this.mainTopics = mainTopics;
+        let minYear = Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year));
+        let maxYear = Math.max(...this.mainTopics.map(mainTopic => mainTopic.end_date.year));
+
+        this.lineStart = minYear;
+        this.lineEnd = maxYear;
+
+        this.scale.domain([this.lineStart, this.lineEnd]);
+        console.log('min, max year', minYear, maxYear);
+        console.log('scale', this.scale(minYear), this.scale(maxYear));
+        console.log('start, end', this.lineStart, this.lineEnd);
+        console.log('mainTopics', this.mainTopics);
+
+
+
+
+
+      },
+      error: (error) => {
+        console.error('Error fetching main topics:', error);
+      }
+    });
+  }
+  mainTopics: MainTopic[] = [];
+  timelineEvents: TimelineEvents[] = [];
+
+  lineStart = 0;
+  lineEnd = 100;
 
   linePosition = 50;
   padding = 10;
-  scale = d3.scaleLinear()
-    .domain([2000, new Date().getFullYear()]) // Domain: starting and ending needs to be dynamically generated based on array of events
-    .range([this.padding, 1600 - this.padding]); // Range: range of pixels (adjust as needed)
+  scale: any = d3.scaleLinear()
+    .domain([this.lineStart, this.lineEnd]) // Domain: starting and ending needs to be dynamically generated based on array of events
+    .range([this.padding, 1600]); // Range: range of pixels (adjust as needed)
 
-  // events: Event[] = [
-  //   { id: 1, title: 'Event 1', description: 'This is event 1', date: new Date(2000, 0, 1) },
-  //   { id: 2, title: 'Event 2', description: 'This is event 2', date: new Date(2022, 0, 1) },
-  //   { id: 3, title: 'Event 3', description: 'This is event 3', date: new Date(2012, 0, 1) },
-  //   // More events...
-  // ];
+  onEventClick(topic: MainTopic) {
+    console.log('Event clicked:', topic);
 
-  onEventClick(id: number) {
-    console.log(`Event with id ${id} was clicked.`);
     // Navigate to a detailed view, or perform some other action...
   }
 
-  // getStartYear() {
-  //   return this.scale(Math.min(...this.events.map(event => event.date.getFullYear())));
-  // }
+  getStartYear() {
+    if (this.mainTopics.length === 0 && this.timelineEvents.length === 0) {
+      console.error('No events to display.');
+      return null;
+    } else if (this.timelineEvents.length === 0) {
+      console.log('mainTopics', Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year)));
 
-  // getEndYear() {
-  //   return this.scale(Math.max(...this.events.map(event => event.date.getFullYear())));
-  // }
+      return this.scale(Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year)));
+    } else {
+      return this.scale(Math.min(...this.timelineEvents.map(event => event.eventDate.year)));
+    }
+  }
+
+  getEndYear() {
+    if (this.mainTopics.length === 0 && this.timelineEvents.length === 0) {
+      console.error('No events to display.');
+      return null;
+    } else if (this.timelineEvents.length === 0) {
+      return this.scale(Math.max(...this.mainTopics.map(mainTopic => mainTopic.end_date.year)));
+    } else {
+      return this.scale(Math.max(...this.timelineEvents.map(event => event.eventDate.year)));
+    }
+  }
 }

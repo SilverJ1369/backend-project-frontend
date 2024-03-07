@@ -8,7 +8,7 @@ export class MainTopic {
     public id: number,
     public location: Location,
     public category: Category,
-    public startDate: EventDate,
-    public endDate: EventDate
+    public start_date: EventDate,
+    public end_date: EventDate
   ) {}
 }

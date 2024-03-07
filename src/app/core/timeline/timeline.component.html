@@ -1,1 +1,10 @@
-<p>timeline works!</p>
+<div class="outer" style="width: 80vw;">
+  <svg width="100%" height="200" style="margin-left: 5%;">
+    <line [attr.y1]="linePosition" [attr.y2]="linePosition"
+    [attr.x1]="scale(lineStart)" [attr.x2]="scale(lineEnd)" stroke="black" style="padding-left: 5px;"/>
+    @for (mainTopic of mainTopics; track mainTopic.id) {
+      <circle [attr.cx]="scale(mainTopic.start_date.year)" cy="50" r="5" stroke="black" fill="white" (click)="onEventClick(mainTopic)" />
+      <!-- More SVG elements can go here -->
+    }
+  </svg>
+</div>
