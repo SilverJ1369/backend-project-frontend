@@ -1,4 +1,4 @@
-import { TimelineEvents } from './timeline-events';
+import { TimelineEvents } from './timeline-event';
 
 describe('TimelineEvents', () => {
   it('should create an instance', () => {

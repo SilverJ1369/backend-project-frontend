@@ -2,7 +2,7 @@ import { EventDate } from './event-date';
 import { Location } from './location';
 import { MainTopic } from './main-topic';
 
-export class TimelineEvents {
+export class TimelineEvent {
 
   constructor(
     public id: number,

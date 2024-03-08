@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { MainTopic } from '../../shared/models/main-topic';
-import { TimelineEvents } from '../../shared/models/timeline-events';
-import { TimelineService } from '../services/timeline.service';
+import { TimelineEvent } from '../../shared/models/timeline-event';
+import { MainTopicService } from '../services/main-topic.service';
 
 @Component({
   selector: 'app-timeline',
@@ -13,10 +13,10 @@ import { TimelineService } from '../services/timeline.service';
 })
 export class TimelineComponent implements OnInit{
 
-  constructor(private timelineService: TimelineService) { }
+  constructor(private mainTopicService: MainTopicService) { }
 
   ngOnInit(): void {
-    this.timelineService.getMainTopics().subscribe({
+    this.mainTopicService.getMainTopics().subscribe({
       next: (mainTopics: MainTopic[]) => {
         this.mainTopics = mainTopics;
         let minYear = Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year));
@@ -42,7 +42,7 @@ export class TimelineComponent implements OnInit{
     });
   }
   mainTopics: MainTopic[] = [];
-  timelineEvents: TimelineEvents[] = [];
+  timelineEvents: TimelineEvent[] = [];
 
   lineStart = 0;
   lineEnd = 100;
