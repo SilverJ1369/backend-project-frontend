@@ -1,1 +1,20 @@
-<p>main-topic-form works!</p>
+<div class="container">
+  <h1>New Main Topic</h1>
+  <form [formGroup]="mainTopicForm" (ngsubmit)="onSubmit()" class="form">
+    <label for="name">Name</label>
+    <input type="text" formControlName="name" id="name" class="form-control" />
+    <label for="location">location</label>
+    <button type="button">Find Location</button>
+
+    <label for="category">Category</label>
+    <select formControlName="category" id="category" class="form-control">
+      <option value="1">Category 1</option>
+      <option value="2">Category 2</option>
+      <option value="3">Category 3</option>
+    </select>
+    <label for="startDate">Start Date</label>
+    <button type="button">Find Start Date</button>
+    <label for="endDate">End Date</label>
+    <button type="button">Find End Date</button>
+  </form>
+</div>
