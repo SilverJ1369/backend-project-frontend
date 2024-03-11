@@ -1,10 +1,10 @@
 export class Location {
 
   constructor(
-    id: number,
-    locationKey: string,
-    country: string,
-    state: string,
-    city: string
+    public id: number,
+    public locationKey: string,
+    public country: string,
+    public state?: string,
+    public city?: string
   ) {}
 }
