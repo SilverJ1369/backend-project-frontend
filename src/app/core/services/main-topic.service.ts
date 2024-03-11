@@ -15,8 +15,8 @@ export class MainTopicService {
     return this.http.get<MainTopic[]>(`${environment.apiUrl}/main_topic`);
   }
 
-  createMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
-    return this.http.post<MainTopic>(`${environment.apiUrl}/main_topic`, mainTopic);
+  createMainTopic(data: any): Observable<MainTopic> {
+    return this.http.post<MainTopic>(`${environment.apiUrl}/main_topic`, data);
   }
 
   updateMainTopic(mainTopic: MainTopic): Observable<MainTopic> {

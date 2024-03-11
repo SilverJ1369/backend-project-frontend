@@ -6,6 +6,7 @@ export class MainTopic {
 
   constructor(
     public id: number,
+    public name: string,
     public location: Location,
     public category: Category,
     public start_date: EventDate,
