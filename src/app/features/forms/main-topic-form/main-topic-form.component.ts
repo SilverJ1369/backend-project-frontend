@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MainTopicService } from '../../../core/services/main-topic.service';
 import { Router } from '@angular/router';
+
+import { MainTopicService } from '../../../core/services/main-topic.service';
 import { ModalComponent } from '../../../shared/modal/modal.component';
 
 @Component({
@@ -28,7 +29,7 @@ export class MainTopicFormComponent {
     this.mainTopicService.createMainTopic(this.mainTopicForm.value).subscribe({
       next: () => {
         console.log('Main topic created successfully!');
-        this.router.navigate(['/main-topic']);
+        this.router.navigate(['/timeline']);
       },
       error: (error) => {
         console.error('Error creating main topic:', error);
@@ -42,7 +43,8 @@ export class MainTopicFormComponent {
   openEventModal() {
     this.modal.openEventDialog();
   }
-  openEpisodeModal() {
-    this.modal.openEpisodeDialog();
+
+  openCategoryModal() {
+    this.modal.openCategoryDialog();
   }
 }

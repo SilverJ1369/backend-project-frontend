@@ -4,7 +4,7 @@
     <label for="name">Name</label>
     <input type="text" formControlName="name" id="name" class="form-control" />
     <label for="location">location</label>
-    <button type="button">Find Location</button>
+    <button (click)="openLocationModal()">Location</button>
 
     <label for="category">Category</label>
     <select formControlName="category" id="category" class="form-control">
@@ -13,13 +13,12 @@
       <option value="3">Category 3</option>
     </select>
     <label for="startDate">Start Date</label>
-    <button type="button">Find Start Date</button>
+    <button (click)="openEventModal()">Event Date</button>
     <label for="endDate">End Date</label>
-    <button type="button">Find End Date</button>
+    <button (click)="openEventModal()">Event Date</button>
+    <button (click)="openCategoryModal()">Create Category</button>
+    <button type="submit">Submit</button>
   </form>
 </div>
 
-<button (click)="openLocationModal()">Location</button>
-<button (click)="openEventModal()">Event Date</button>
-<button (click)="openEpisodeModal()">Episode</button>
 <app-modal/>
