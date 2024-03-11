@@ -1,4 +1,24 @@
-<button (click)="openLocationModal()">Location</button>
-<button (click)="openEventModal()">Event Date</button>
-<button (click)="openEpisodeModal()">Episode</button>
+<div class="container">
+  <h1>New Main Topic</h1>
+  <form [formGroup]="mainTopicForm" (ngsubmit)="onSubmit()" class="form">
+    <label for="name">Name</label>
+    <input type="text" formControlName="name" id="name" class="form-control" />
+    <label for="location">location</label>
+    <button (click)="openLocationModal()">Location</button>
+
+    <label for="category">Category</label>
+    <select formControlName="category" id="category" class="form-control">
+      <option value="1">Category 1</option>
+      <option value="2">Category 2</option>
+      <option value="3">Category 3</option>
+    </select>
+    <label for="startDate">Start Date</label>
+    <button (click)="openEventModal()">Event Date</button>
+    <label for="endDate">End Date</label>
+    <button (click)="openEventModal()">Event Date</button>
+    <button (click)="openCategoryModal()">Create Category</button>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
 <app-modal/>

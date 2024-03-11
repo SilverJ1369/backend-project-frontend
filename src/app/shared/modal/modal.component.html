@@ -34,14 +34,10 @@
     </menu>
   </form>
 </dialog>
-<dialog #timesuckEpisodeDialog>
-  <h2>Find or Create Timesuck Episode</h2>
-  <p>You can add form elements and text here.</p>
+<dialog #categoryForm>
   <form method="dialog">
-    <label for="episodeNumber">Episode Number</label>
-    <input type="text" placeholder="1, BS1, SS1">
-    <label for="MainTopic">Main Topic</label>
-    <input type="text" placeholder="Missouri, Texas, etc.">
+    <label for="category">Category</label>
+    <input type="text" placeholder="Film, Disaster, etc.">
     <menu>
       <button value="cancel" (click)="closeDialog()">Cancel</button>
       <button value="confirm">Confirm</button>
