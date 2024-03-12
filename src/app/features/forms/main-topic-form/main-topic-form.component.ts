@@ -1,9 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MainTopicService } from '../../../core/services/main-topic.service';
 import { ModalComponent } from '../../../shared/modal/modal.component';
+import { Location } from '../../../shared/models/location';
 
 @Component({
   selector: 'app-main-topic-form',
@@ -22,10 +23,19 @@ export class MainTopicFormComponent {
   });
   @ViewChild(ModalComponent) modal!: ModalComponent;
 
+  @Input() locationID!: number;
+  @Input() startDateID!: number;
+  @Input() endDateID!: number;
+  @Input() categoryID!: number;
+
+
   constructor(private mainTopicService: MainTopicService, private router: Router) { }
 
   onSubmit() {
-
+    this.mainTopicForm.value.location = this.locationID;
+    this.mainTopicForm.value.startDate = this.startDateID;
+    this.mainTopicForm.value.endDate = this.endDateID;
+    this.mainTopicForm.value.category = this.categoryID;
     this.mainTopicService.createMainTopic(this.mainTopicForm.value).subscribe({
       next: () => {
         console.log('Main topic created successfully!');
@@ -39,6 +49,7 @@ export class MainTopicFormComponent {
 
   openLocationModal() {
     this.modal.openLocationDialog();
+
   }
   openEventModal() {
     this.modal.openEventDialog();

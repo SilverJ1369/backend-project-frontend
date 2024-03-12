@@ -1,5 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LocationService } from '../../core/services/location.service';
 
 @Component({
   selector: 'app-modal',
@@ -12,7 +13,12 @@ export class ModalComponent {
 
   @ViewChild('locationDialog') locationDialog!: ElementRef;
   @ViewChild('eventDateDialog') eventDateDialog!: ElementRef;
-  @ViewChild('category') categoryDialog!: ElementRef;
+  @ViewChild('categoryDialog') categoryDialog!: ElementRef;
+
+  @Output() locationId!: number;
+  @Output() startDateID!: number;
+  @Output() endDateID!: number;
+  @Output() categoryID!: number;
 
   locationForm = new FormGroup({
     country: new FormControl('', [Validators.required]),
@@ -32,7 +38,7 @@ export class ModalComponent {
     name: new FormControl('', [Validators.required]),
   })
 
-  constructor() {}
+  constructor(private locationService: LocationService) {}
 
   openLocationDialog() {
     (this.locationDialog.nativeElement as HTMLDialogElement).showModal();
@@ -45,20 +51,22 @@ export class ModalComponent {
   }
 
   closeDialog() {
+    this.locationForm.reset();
     console.log('close dialog');
 
-    this.locationForm.reset();
     (this.locationDialog.nativeElement as HTMLDialogElement).close();
   }
 
-  locationSubmit() {
-    console.log('location submit', this.locationForm.value);
+  locationSubmit(): number | void {
+    this.locationService.createLocation(this.locationForm.value).subscribe({
+      next: (res) => {
+        this.locationId = res.id;
+      }
+    });
     this.locationForm.reset();
-    
   }
 
   eventSubmit() {
-    console.log('event submit');
     this.eventDateForm.reset();
   }
 
