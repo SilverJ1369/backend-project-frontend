@@ -1,6 +1,7 @@
 import { Component, ElementRef, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocationService } from '../../core/services/location.service';
+import { EventDateService } from '../../core/services/event-date.service';
 
 @Component({
   selector: 'app-modal',
@@ -38,7 +39,10 @@ export class ModalComponent {
     name: new FormControl('', [Validators.required]),
   })
 
-  constructor(private locationService: LocationService) {}
+  constructor(
+    private locationService: LocationService,
+    private eventDateService: EventDateService
+  ) {}
 
   openLocationDialog() {
     (this.locationDialog.nativeElement as HTMLDialogElement).showModal();
@@ -66,7 +70,20 @@ export class ModalComponent {
     this.locationForm.reset();
   }
 
-  eventSubmit() {
+  startDateSubmit() {
+    this.eventDateService.createEventDate(this.eventDateForm.value).subscribe({
+      next: (res) => {
+        this.startDateID = res.id;
+      }
+    });
+    this.eventDateForm.reset();
+  }
+  endDateSubmit() {
+    this.eventDateService.createEventDate(this.eventDateForm.value).subscribe({
+      next: (res) => {
+        this.endDateID = res.id;
+      }
+    });
     this.eventDateForm.reset();
   }
 
