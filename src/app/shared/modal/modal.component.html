@@ -9,7 +9,7 @@
     <label for="city">City</label>
     <input type="text" formControlName="city" placeholder="Cape Girardeau, Houston etc.">
     <menu>
-      <button value="cancel" (click)="closeDialog()">Cancel</button>
+      <button (click)="closeDialog()">Cancel</button>
       <button value="confirm" type="submit" (click)="locationSubmit()">Confirm</button>
     </menu>
   </form>
@@ -29,7 +29,7 @@
     <label for="modifier">Modifier</label>
     <input type="text" placeholder="Before, After, etc.">
     <menu>
-      <button value="cancel" (click)="closeDialog()">Cancel</button>
+      <button (click)="closeDialog()">Cancel</button>
       <button value="confirm">Confirm</button>
     </menu>
   </form>
@@ -39,7 +39,7 @@
     <label for="category">Category</label>
     <input type="text" placeholder="Film, Disaster, etc.">
     <menu>
-      <button value="cancel" (click)="closeDialog()">Cancel</button>
+      <button (click)="closeDialog()">Cancel</button>
       <button value="confirm">Confirm</button>
     </menu>
   </form>
