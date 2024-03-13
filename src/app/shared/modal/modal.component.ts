@@ -19,7 +19,6 @@ export class ModalComponent {
   @Output() locationId!: number;
   @Output() startDateID!: number;
   @Output() endDateID!: number;
-  @Output() categoryID!: number;
 
   locationForm = new FormGroup({
     country: new FormControl('', [Validators.required]),
@@ -35,10 +34,6 @@ export class ModalComponent {
     modifier: new FormControl(''),
   })
 
-  categoryForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-  })
-
   constructor(
     private locationService: LocationService,
     private eventDateService: EventDateService
@@ -50,14 +45,9 @@ export class ModalComponent {
   openEventDialog() {
     (this.eventDateDialog.nativeElement as HTMLDialogElement).showModal();
   }
-  openCategoryDialog() {
-    (this.categoryDialog.nativeElement as HTMLDialogElement).showModal();
-  }
 
   closeDialog() {
     this.locationForm.reset();
-    console.log('close dialog');
-
     (this.locationDialog.nativeElement as HTMLDialogElement).close();
   }
 
@@ -86,10 +76,4 @@ export class ModalComponent {
     });
     this.eventDateForm.reset();
   }
-
-  categorySubmit() {
-    console.log('category submit');
-    this.categoryForm.reset();
-  }
-
 }
