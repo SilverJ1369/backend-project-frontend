@@ -13,7 +13,8 @@ import { EventDateService } from '../../core/services/event-date.service';
 export class ModalComponent {
 
   @ViewChild('locationDialog') locationDialog!: ElementRef;
-  @ViewChild('eventDateDialog') eventDateDialog!: ElementRef;
+  @ViewChild('startDateDialog') startDateDialog!: ElementRef;
+  @ViewChild('endDateDialog') endDateDialog!: ElementRef;
   @ViewChild('categoryDialog') categoryDialog!: ElementRef;
 
   @Output() locationId!: number;
@@ -30,7 +31,7 @@ export class ModalComponent {
     year: new FormControl(0, [Validators.required]),
     month: new FormControl(0),
     day: new FormControl(0),
-    isAD: new FormControl(true),
+    is_ad: new FormControl(true),
     modifier: new FormControl(''),
   })
 
@@ -42,8 +43,11 @@ export class ModalComponent {
   openLocationDialog() {
     (this.locationDialog.nativeElement as HTMLDialogElement).showModal();
   }
-  openEventDialog() {
-    (this.eventDateDialog.nativeElement as HTMLDialogElement).showModal();
+  openStartDateDialog() {
+    (this.startDateDialog.nativeElement as HTMLDialogElement).showModal();
+  }
+  openEndDateDialog() {
+    (this.endDateDialog.nativeElement as HTMLDialogElement).showModal();
   }
 
   closeDialog() {
@@ -76,4 +80,5 @@ export class ModalComponent {
     });
     this.eventDateForm.reset();
   }
+
 }

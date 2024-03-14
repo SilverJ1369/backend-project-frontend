@@ -72,8 +72,12 @@ export class MainTopicFormComponent implements OnInit{
     this.modal.openLocationDialog();
 
   }
-  openEventModal() {
-    this.modal.openEventDialog();
+  openStartDateModal() {
+    this.modal.openStartDateDialog();
+  }
+
+  openEndDateModal() {
+    this.modal.openEndDateDialog();
   }
 
   addCategory() {
@@ -88,4 +92,5 @@ export class MainTopicFormComponent implements OnInit{
     });
 
   }
+
 }

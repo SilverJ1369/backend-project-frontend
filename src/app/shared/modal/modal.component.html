@@ -17,40 +17,42 @@
 <dialog #startDateDialog>
   <h2>Find or Create Event Date</h2>
   <p>You can add form elements and text here.</p>
-  <form method="dialog">
+  <form method="dialog" [formGroup]="eventDateForm">
     <label for="year">Year</label>
-    <input type="number" placeholder="2024">
+    <input type="number" placeholder="2024" formControlName="year">
     <label for="month">Month</label>
-    <input type="number" placeholder="8">
+    <input type="number" placeholder="8" formControlName="month">
     <label for="day">Day</label>
-    <input type="number" placeholder="26">
+    <input type="number" placeholder="26" formControlName="day">
     <label for="isAD">AD?</label>
-    <input type="checkbox" checked>
+    <input type="checkbox" checked formControlName="is_ad">
     <label for="modifier">Modifier</label>
-    <input type="text" placeholder="Before, After, etc.">
+    <input type="text" placeholder="Before, After, etc." formControlName="modifier">
     <menu>
       <button (click)="closeDialog()">Cancel</button>
-      <button value="confirm" (click)="startDateSubmit()">Confirm</button>
+      <button value="confirm" type="submit" (click)="startDateSubmit()">Confirm</button>
     </menu>
   </form>
 </dialog>
 <dialog #endDateDialog>
   <h2>Find or Create Event Date</h2>
   <p>You can add form elements and text here.</p>
-  <form method="dialog">
+  <form method="dialog" [formGroup]="eventDateForm">
     <label for="year">Year</label>
-    <input type="number" placeholder="2024">
+    <input type="number" placeholder="2024" formControlName="year">
     <label for="month">Month</label>
-    <input type="number" placeholder="8">
+    <input type="number" placeholder="8" formControlName="month">
     <label for="day">Day</label>
-    <input type="number" placeholder="26">
-    <label for="isAD">AD?</label>
-    <input type="checkbox" checked>
+    <input type="number" placeholder="26" formControlName="day">
+    <label for="is_ad">AD?</label>
+    <input type="checkbox" checked formControlName="is_ad">
     <label for="modifier">Modifier</label>
-    <input type="text" placeholder="Before, After, etc.">
+    <input type="text" placeholder="Before, After, etc." formControlName="modifier">
     <menu>
       <button (click)="closeDialog()">Cancel</button>
-      <button value="confirm" (click)="endDateSubmit()">Confirm</button>
+      <button value="confirm" type="submit" (click)="endDateSubmit()">Confirm</button>
     </menu>
   </form>
+</dialog>
+
 
