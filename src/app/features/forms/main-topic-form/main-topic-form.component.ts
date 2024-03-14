@@ -51,11 +51,11 @@ export class MainTopicFormComponent {
     this.modal.openLocationDialog();
 
   }
-  openEventModal() {
-    this.modal.openEventDialog();
+  openStartDateModal() {
+    this.modal.openStartDateDialog();
+  }
+  openEndDateModal() {
+    this.modal.openEndDateDialog();
   }
 
-  openCategoryModal() {
-    this.modal.openCategoryDialog();
-  }
 }
