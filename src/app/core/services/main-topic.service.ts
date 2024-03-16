@@ -12,18 +12,18 @@ export class MainTopicService {
   constructor(private http: HttpClient) { }
 
   getMainTopics(): Observable<MainTopic[]> {
-    return this.http.get<MainTopic[]>(`${environment.apiUrl}/main_topic`);
+    return this.http.get<MainTopic[]>(`${environment.apiUrl}/main_topics`);
   }
 
   createMainTopic(data: any): Observable<MainTopic> {
-    return this.http.post<MainTopic>(`${environment.apiUrl}/main_topic`, data);
+    return this.http.post<MainTopic>(`${environment.apiUrl}/main_topics`, data);
   }
 
   updateMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
-    return this.http.put<MainTopic>(`${environment.apiUrl}/main_topic`, mainTopic);
+    return this.http.patch<MainTopic>(`${environment.apiUrl}/main_topics`, mainTopic);
   }
 
   deleteMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
-    return this.http.delete<MainTopic>(`${environment.apiUrl}/main_topic/${mainTopic.id}`);
+    return this.http.delete<MainTopic>(`${environment.apiUrl}/main_topics/${mainTopic.id}`);
   }
 }

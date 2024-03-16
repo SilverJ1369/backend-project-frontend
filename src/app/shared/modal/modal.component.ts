@@ -1,5 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LocationService } from '../../core/services/location.service';
+import { EventDateService } from '../../core/services/event-date.service';
+import { Location } from '../models/location';
+import { EventDate } from '../models/event-date';
 
 @Component({
   selector: 'app-modal',
@@ -11,8 +15,13 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
 export class ModalComponent {
 
   @ViewChild('locationDialog') locationDialog!: ElementRef;
-  @ViewChild('eventDateDialog') eventDateDialog!: ElementRef;
-  @ViewChild('category') categoryDialog!: ElementRef;
+  @ViewChild('startDateDialog') startDateDialog!: ElementRef;
+  @ViewChild('endDateDialog') endDateDialog!: ElementRef;
+  @ViewChild('categoryDialog') categoryDialog!: ElementRef;
+
+  @Output() locationID = new EventEmitter<number>();
+  @Output() startDateID = new EventEmitter<number>();
+  @Output() endDateID = new EventEmitter<number>();
 
   locationForm = new FormGroup({
     country: new FormControl('', [Validators.required]),
@@ -24,47 +33,58 @@ export class ModalComponent {
     year: new FormControl(0, [Validators.required]),
     month: new FormControl(0),
     day: new FormControl(0),
-    isAD: new FormControl(true),
+    is_ad: new FormControl(true),
     modifier: new FormControl(''),
   })
 
-  categoryForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-  })
-
-  constructor() {}
+  constructor(
+    private locationService: LocationService,
+    private eventDateService: EventDateService
+  ) {}
 
   openLocationDialog() {
     (this.locationDialog.nativeElement as HTMLDialogElement).showModal();
   }
-  openEventDialog() {
-    (this.eventDateDialog.nativeElement as HTMLDialogElement).showModal();
+  openStartDateDialog() {
+    (this.startDateDialog.nativeElement as HTMLDialogElement).showModal();
   }
-  openCategoryDialog() {
-    (this.categoryDialog.nativeElement as HTMLDialogElement).showModal();
+  openEndDateDialog() {
+    (this.endDateDialog.nativeElement as HTMLDialogElement).showModal();
   }
 
   closeDialog() {
-    console.log('close dialog');
-
     this.locationForm.reset();
     (this.locationDialog.nativeElement as HTMLDialogElement).close();
   }
 
-  locationSubmit() {
-    console.log('location submit', this.locationForm.value);
+  locationSubmit(): number | void {
+    this.locationService.createLocation(this.locationForm.value).subscribe({
+      next: (res) => {
+        this.locationID.emit(res.id);
+      }
+    });
     this.locationForm.reset();
-    
   }
 
-  eventSubmit() {
-    console.log('event submit');
-    this.eventDateForm.reset();
+  startDateSubmit() {
+    this.eventDateService.createEventDate(this.eventDateForm.value).subscribe({
+      next: (res) => {
+        this.startDateID.emit(res.id);
+      }
+    });
+    this.eventDateForm.reset({
+      is_ad: true
+    });
   }
-
-  categorySubmit() {
-    console.log('category submit');
-    this.categoryForm.reset();
+  endDateSubmit() {
+    this.eventDateService.createEventDate(this.eventDateForm.value).subscribe({
+      next: (res) => {
+        this.endDateID.emit(res.id);
+      }
+    });
+    this.eventDateForm.reset({
+      is_ad: true
+    });
   }
 
 }

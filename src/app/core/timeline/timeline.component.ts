@@ -19,6 +19,8 @@ export class TimelineComponent implements OnInit{
     this.mainTopicService.getMainTopics().subscribe({
       next: (mainTopics: MainTopic[]) => {
         this.mainTopics = mainTopics;
+        console.log('Main topics:', mainTopics);
+
         let minYear = Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year));
         let maxYear = Math.max(...this.mainTopics.map(mainTopic => mainTopic.end_date.year));
 
@@ -30,11 +32,6 @@ export class TimelineComponent implements OnInit{
         console.log('scale', this.scale(minYear), this.scale(maxYear));
         console.log('start, end', this.lineStart, this.lineEnd);
         console.log('mainTopics', this.mainTopics);
-
-
-
-
-
       },
       error: (error) => {
         console.error('Error fetching main topics:', error);
