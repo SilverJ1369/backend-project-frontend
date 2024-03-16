@@ -13,5 +13,9 @@ export const routes: Routes = [
   {
     path: 'main-topic-form',
     loadComponent: () => import('./features/forms/main-topic-form/main-topic-form.component').then(m => m.MainTopicFormComponent),
+  },
+  {
+    path: 'timeline-event-form',
+    loadComponent: () => import('./features/forms/timeline-event-form/timeline-event-form.component').then(m => m.TimelineEventFormComponent),
   }
 ];
