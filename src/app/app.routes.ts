@@ -17,5 +17,9 @@ export const routes: Routes = [
   {
     path: 'timeline-event-form',
     loadComponent: () => import('./features/forms/timeline-event-form/timeline-event-form.component').then(m => m.TimelineEventFormComponent),
+  },
+  {
+    path: 'timesuck-episode-form',
+    loadComponent: () => import('./features/forms/timesuck-episode-form/timesuck-episode-form.component').then(m => m.TimesuckEpisodeFormComponent),
   }
 ];
