@@ -7,7 +7,7 @@
     <button (click)="openLocationModal()">Location</button>
 
     <label for="category">Category</label>
-    <select formControlName="category" id="category" class="form-control">
+    <select formControlName="category_id" id="category" class="form-control">
       @for(category of categories; track category.id) {
         <option [value]="category.id">{{category.name}}</option>
       }
@@ -16,7 +16,7 @@
     <button (click)="openStartDateModal()">Event Date</button>
     <label for="endDate">End Date</label>
     <button (click)="openEndDateModal()">Event Date</button>
-    <button type="submit">Submit</button>
+    <button type="submit" (click)="checkValue()">Submit</button>
   </form>
 
   <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
@@ -25,4 +25,4 @@
   </form>
 </div>
 
-<app-modal/>
+<app-modal (locationID)="locationID = $event" (startDateID)="startDateID = $event" (endDateID)="endDateID = $event"/>

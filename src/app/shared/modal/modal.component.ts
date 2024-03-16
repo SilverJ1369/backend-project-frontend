@@ -1,7 +1,9 @@
-import { Component, ElementRef, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocationService } from '../../core/services/location.service';
 import { EventDateService } from '../../core/services/event-date.service';
+import { Location } from '../models/location';
+import { EventDate } from '../models/event-date';
 
 @Component({
   selector: 'app-modal',
@@ -17,9 +19,9 @@ export class ModalComponent {
   @ViewChild('endDateDialog') endDateDialog!: ElementRef;
   @ViewChild('categoryDialog') categoryDialog!: ElementRef;
 
-  @Output() locationId!: number;
-  @Output() startDateID!: number;
-  @Output() endDateID!: number;
+  @Output() locationID = new EventEmitter<number>();
+  @Output() startDateID = new EventEmitter<number>();
+  @Output() endDateID = new EventEmitter<number>();
 
   locationForm = new FormGroup({
     country: new FormControl('', [Validators.required]),
@@ -34,6 +36,8 @@ export class ModalComponent {
     is_ad: new FormControl(true),
     modifier: new FormControl(''),
   })
+
+  checkboxStatus = true;
 
   constructor(
     private locationService: LocationService,
@@ -58,7 +62,7 @@ export class ModalComponent {
   locationSubmit(): number | void {
     this.locationService.createLocation(this.locationForm.value).subscribe({
       next: (res) => {
-        this.locationId = res.id;
+        this.locationID.emit(res.id);
       }
     });
     this.locationForm.reset();
@@ -67,18 +71,22 @@ export class ModalComponent {
   startDateSubmit() {
     this.eventDateService.createEventDate(this.eventDateForm.value).subscribe({
       next: (res) => {
-        this.startDateID = res.id;
+        this.startDateID.emit(res.id);
       }
     });
-    this.eventDateForm.reset();
+    this.eventDateForm.reset({
+      is_ad: true
+    });
   }
   endDateSubmit() {
     this.eventDateService.createEventDate(this.eventDateForm.value).subscribe({
       next: (res) => {
-        this.endDateID = res.id;
+        this.endDateID.emit(res.id);
       }
     });
-    this.eventDateForm.reset();
+    this.eventDateForm.reset({
+      is_ad: true
+    });
   }
 
 }

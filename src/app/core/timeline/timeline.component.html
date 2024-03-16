@@ -4,7 +4,7 @@
     [attr.x1]="scale(lineStart)" [attr.x2]="scale(lineEnd)" stroke="black" style="padding-left: 5px;"/>
     @for (mainTopic of mainTopics; track mainTopic.id) {
       <circle [attr.cx]="scale(mainTopic.start_date.year)" cy="50" r="5" stroke="black" fill="white" (click)="onEventClick(mainTopic)" />
-      <!-- More SVG elements can go here -->
+      <!-- Find way to display multiple main topics with same dates -->
     }
   </svg>
   <!-- create another svg line here for timeline events -->

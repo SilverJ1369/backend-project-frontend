@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { EventDate } from '../../shared/models/event-date';
+import { Category } from '../../shared/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class EventDateService {
 
   constructor(private http:HttpClient) { }
 
-  getEventDates() {
+  getEventDates(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/event_dates`);
   }
 

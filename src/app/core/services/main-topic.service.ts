@@ -20,7 +20,7 @@ export class MainTopicService {
   }
 
   updateMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
-    return this.http.put<MainTopic>(`${environment.apiUrl}/main_topics`, mainTopic);
+    return this.http.patch<MainTopic>(`${environment.apiUrl}/main_topics`, mainTopic);
   }
 
   deleteMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
