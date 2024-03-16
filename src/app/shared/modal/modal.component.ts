@@ -37,8 +37,6 @@ export class ModalComponent {
     modifier: new FormControl(''),
   })
 
-  checkboxStatus = true;
-
   constructor(
     private locationService: LocationService,
     private eventDateService: EventDateService
