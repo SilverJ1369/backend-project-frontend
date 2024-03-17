@@ -14,7 +14,7 @@ import { MainTopicService } from '../services/main-topic.service';
 export class TimelineComponent implements OnInit{
 
   constructor(private mainTopicService: MainTopicService) { }
-
+  // some main topics outside of line
   ngOnInit(): void {
     this.mainTopicService.getMainTopics().subscribe({
       next: (mainTopics: MainTopic[]) => {
