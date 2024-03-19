@@ -10,7 +10,7 @@ export class TimelineEvent {
     public details: string,
     public location: Location,
     public mainTopic: MainTopic,
-    public eventDate: EventDate,
+    public event_date: EventDate,
     public isGraphic: boolean
   ) {}
 }
