@@ -1,1 +1,29 @@
-<p>timeline-event-form works!</p>
+<div class="form">
+  <form [formGroup]="timelineEventForm" (ngSubmit)="onSubmit()">
+    <label for="main_topic_id">Main Topic</label>
+    <input
+      list="main-topics-list"
+      formControlName="main_topic_id"
+      id="main_topic_id"
+      name="main_topic_id"
+      placeholder="Search for Main topic"
+      >
+    <datalist id="main-topics-list">
+      @for(mainTopic of mainTopics; track mainTopic.id) {
+        <option [value]="mainTopic.id">{{ mainTopic.name }}</option>
+      }
+    </datalist>
+    <label for="location">Location</label>
+    <button type="button" (click)="openLocationModal()">Location</button>
+    <label for="details">Details</label>
+    <textarea type="text" formControlName="details">
+    </textarea>
+    <label for="eventDate">Event Date</label>
+    <button type="button" (click)="openEventDateModal()">Event Date</button>
+    <label for="isGraphic">Is Graphic?</label>
+    <input type="checkbox" formControlName="is_graphic" id="isGraphic" />
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<app-modal (locationID)="locationID = $event" (eventDateID)="eventDateID = $event"/>

@@ -6,8 +6,6 @@ import { MainTopicService } from '../../../core/services/main-topic.service';
 import { ModalComponent } from '../../../shared/modal/modal.component';
 import { Category } from '../../../shared/models/category';
 import { CategoryService } from '../../../core/services/category.service';
-import { Location } from '../../../shared/models/location';
-import { EventDate } from '../../../shared/models/event-date';
 
 @Component({
   selector: 'app-main-topic-form',
