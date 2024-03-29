@@ -1,9 +1,13 @@
+@if(selectedMainTopic || selectedTimelineEvent) {
+  <app-sidebar [selectedMainTopic]="selectedMainTopic" [selectedTimelineEvent]="selectedTimelineEvent" class="sidebar"/>
+}
+
 <div class="outer" style="width: 80vw;">
   <svg width="100%" height="200" style="margin-left: 5%;">
     <line [attr.y1]="linePosition" [attr.y2]="linePosition"
     [attr.x1]="scale(lineStart)" [attr.x2]="scale(lineEnd)" stroke="black" style="padding-left: 5px;"/>
     @for (mainTopic of mainTopics; track mainTopic.id) {
-      <circle [attr.cx]="scale(mainTopic.start_date.year)" cy="75" r="5" stroke="black" fill="white" (click)="onEventClick(mainTopic)" />
+      <circle [attr.cx]="scale(mainTopic.start_date.year)" cy="75" r="5" stroke="black" fill="white" (click)="onMainTopicClick(mainTopic)" />
       <!-- Find way to display multiple main topics with same dates -->
     }
   </svg>
@@ -13,7 +17,7 @@
       <line [attr.y1]="linePosition" [attr.y2]="linePosition"
       [attr.x1]="scale(lineStart)" [attr.x2]="scale(lineEnd)" stroke="black" style="padding-left: 5px;"/>
       @for (timelineEvent of timelineEvents; track timelineEvent.id) {
-        <circle [attr.cx]="timelineEventScale(timelineEvent.event_date.year)" cy="75" r="5" stroke="black" fill="white"  />
+        <circle [attr.cx]="timelineEventScale(timelineEvent.event_date.year)" cy="75" r="5" stroke="black" fill="white" (click)="onTimelineEventClick(timelineEvent)" />
         <!-- Find way to display multiple main topics with same dates -->
       }
     </svg>

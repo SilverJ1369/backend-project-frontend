@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as d3 from 'd3';
 import { MainTopic } from '../../shared/models/main-topic';
 import { TimelineEvent } from '../../shared/models/timeline-event';
 import { MainTopicService } from '../services/main-topic.service';
 import { TimelineEventService } from '../services/timeline-event.service';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-timeline',
   standalone: true,
-  imports: [],
+  imports: [SidebarComponent],
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss'
 })
@@ -17,6 +18,10 @@ export class TimelineComponent implements OnInit{
   // some main topics outside of line
   mainTopics: MainTopic[] = [];
   timelineEvents: TimelineEvent[] = [];
+  selectedMainTopic: MainTopic | null = null;
+  selectedTimelineEvent: TimelineEvent | null = null;
+  @Output() mainTopicClick = new EventEmitter<MainTopic>();
+  @Output() timelineEventClick = new EventEmitter<TimelineEvent>();
 
   lineStart = 0;
   lineEnd = 100;
@@ -49,9 +54,9 @@ export class TimelineComponent implements OnInit{
     });
   }
 
-
-  onEventClick(topic: MainTopic) {
-    console.log('Event clicked:', topic);
+  onMainTopicClick(topic: MainTopic) {
+    this.selectedMainTopic = topic;
+    this.selectedTimelineEvent = null;
       this.timelineEventService.searchByMainTopic(topic).subscribe({
         next: (events: TimelineEvent[]) => {
           this.timelineEvents = events;
@@ -66,27 +71,10 @@ export class TimelineComponent implements OnInit{
       });
   }
 
-  getStartYear() {
-    if (this.mainTopics.length === 0 && this.timelineEvents.length === 0) {
-      console.error('No events to display.');
-      return null;
-    } else if (this.timelineEvents.length === 0) {
-      console.log('mainTopics', Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year)));
+  onTimelineEventClick(event: TimelineEvent) {
+    console.log('Timeline event clicked:', event);
 
-      return this.scale(Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year)));
-    } else {
-      return this.scale(Math.min(...this.timelineEvents.map(event => event.event_date.year)));
-    }
-  }
-
-  getEndYear() {
-    if (this.mainTopics.length === 0 && this.timelineEvents.length === 0) {
-      console.error('No events to display.');
-      return null;
-    } else if (this.timelineEvents.length === 0) {
-      return this.scale(Math.max(...this.mainTopics.map(mainTopic => mainTopic.end_date.year)));
-    } else {
-      return this.scale(Math.max(...this.timelineEvents.map(event => event.event_date.year)));
-    }
+    this.selectedTimelineEvent = event;
+    this.selectedMainTopic = null;
   }
 }
