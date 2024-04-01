@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MainTopic } from '../models/main-topic';
 import { TimelineEvent } from '../models/timeline-event';
+import { SidebarService } from '../../core/services/sidebar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,18 +15,19 @@ export class SidebarComponent implements OnInit{
 
   mainTopic!: MainTopic
   timelineEvent!: TimelineEvent
-  @Input() selectedMainTopic!: MainTopic | null
-  @Input() selectedTimelineEvent!: TimelineEvent | null
+  private subscriptions: Subscription[] = [];
 
-  constructor() { }
+  constructor(private sidebarService: SidebarService) { }
 
   ngOnInit(): void {
-    if(this.selectedMainTopic){
-      this.mainTopic = this.selectedMainTopic
-    }
-    if(this.selectedTimelineEvent){
-      this.timelineEvent = this.selectedTimelineEvent
-    }
+    this.subscriptions.push(
+      this.sidebarService.selectedMainTopic.subscribe(topic => {
+        this.mainTopic = topic!;
+      }),
+      this.sidebarService.selectedTimelineEvent.subscribe(event => {
+        this.timelineEvent = event!;
+      })
+    );
   }
 
 }

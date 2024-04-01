@@ -18,10 +18,9 @@
 <!-- if timeline event clicked -->
 @if(timelineEvent) {
   <div class="timeline-event-details">
-    <h2>timelineevent.name</h2>
-    <h3>timelineevent.location</h3>
-    <p>timelineevent.details</p>
-    <p>timelineevent.eventdate</p>
-    <p>timelineevent.maintopic</p>
+    <h3>{{ timelineEvent.location.state }}, {{ timelineEvent.location.city }}, {{ timelineEvent.location.country }}</h3>
+    <p>{{ timelineEvent.details }}</p>
+    <p>{{ timelineEvent.event_date.month }}-{{ timelineEvent.event_date.day }}-{{ timelineEvent.event_date.year }}</p>
+    <p>{{ timelineEvent.main_topic.name }}</p>
   </div>
 }

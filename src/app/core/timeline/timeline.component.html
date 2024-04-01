@@ -1,5 +1,5 @@
-@if(selectedMainTopic || selectedTimelineEvent) {
-  <app-sidebar [selectedMainTopic]="selectedMainTopic" [selectedTimelineEvent]="selectedTimelineEvent" class="sidebar"/>
+@if(isSidebarVisible) {
+  <app-sidebar class="sidebar"/>
 }
 
 <div class="outer" style="width: 80vw;">
