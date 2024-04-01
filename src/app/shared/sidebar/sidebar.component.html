@@ -1,0 +1,26 @@
+<div class="buttons">
+  <button>Edit</button>
+  <button>Delete</button>
+</div>
+
+<!-- if main topic clicked -->
+@if(mainTopic) {
+  <div class="main-topic-details">
+    <p>{{ mainTopic.category.name }}</p>
+    <h2>{{ mainTopic.name }}</h2>
+    <h3>{{ mainTopic.location.state }}, {{ mainTopic.location.city }}, {{ mainTopic.location.country }}</h3>
+    <p>{{ mainTopic.start_date.month }}-{{ mainTopic.start_date.day }}-{{ mainTopic.start_date.year }}</p>
+    <p>{{ mainTopic.end_date.month }}-{{ mainTopic.end_date.day }}-{{ mainTopic.end_date.year }}</p>
+
+  </div>
+}
+
+<!-- if timeline event clicked -->
+@if(timelineEvent) {
+  <div class="timeline-event-details">
+    <h3>{{ timelineEvent.location.state }}, {{ timelineEvent.location.city }}, {{ timelineEvent.location.country }}</h3>
+    <p>{{ timelineEvent.details }}</p>
+    <p>{{ timelineEvent.event_date.month }}-{{ timelineEvent.event_date.day }}-{{ timelineEvent.event_date.year }}</p>
+    <p>{{ timelineEvent.main_topic.name }}</p>
+  </div>
+}
