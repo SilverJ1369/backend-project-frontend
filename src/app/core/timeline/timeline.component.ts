@@ -4,11 +4,13 @@ import { MainTopic } from '../../shared/models/main-topic';
 import { TimelineEvent } from '../../shared/models/timeline-event';
 import { MainTopicService } from '../services/main-topic.service';
 import { TimelineEventService } from '../services/timeline-event.service';
+import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
+import { SidebarService } from '../services/sidebar.service';
 
 @Component({
   selector: 'app-timeline',
   standalone: true,
-  imports: [],
+  imports: [SidebarComponent],
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss'
 })
@@ -17,6 +19,9 @@ export class TimelineComponent implements OnInit{
   // some main topics outside of line
   mainTopics: MainTopic[] = [];
   timelineEvents: TimelineEvent[] = [];
+  selectedMainTopic: MainTopic | null = null;
+  selectedTimelineEvent: TimelineEvent | null = null;
+  isSidebarVisible: boolean = false;
 
   lineStart = 0;
   lineEnd = 100;
@@ -32,7 +37,10 @@ export class TimelineComponent implements OnInit{
   .domain([this.timelineEventStart, this.timelineEventEnd]) // Domain: starting and ending needs to be dynamically generated based on array of events
   .range([this.padding, 1600]); // Range: range of pixels (adjust as needed)
 
-  constructor(private mainTopicService: MainTopicService, private timelineEventService: TimelineEventService) { }
+  constructor(
+    private mainTopicService: MainTopicService,
+    private timelineEventService: TimelineEventService,
+    private sidebarService: SidebarService) { }
 
   ngOnInit(): void {
     this.mainTopicService.getMainTopics().subscribe({
@@ -49,9 +57,10 @@ export class TimelineComponent implements OnInit{
     });
   }
 
-
-  onEventClick(topic: MainTopic) {
-    console.log('Event clicked:', topic);
+  onMainTopicClick(topic: MainTopic) {
+    this.sidebarService.selectedMainTopic.next(topic);
+    this.sidebarService.selectedTimelineEvent.next(null);
+    this.isSidebarVisible = true;
       this.timelineEventService.searchByMainTopic(topic).subscribe({
         next: (events: TimelineEvent[]) => {
           this.timelineEvents = events;
@@ -66,27 +75,9 @@ export class TimelineComponent implements OnInit{
       });
   }
 
-  getStartYear() {
-    if (this.mainTopics.length === 0 && this.timelineEvents.length === 0) {
-      console.error('No events to display.');
-      return null;
-    } else if (this.timelineEvents.length === 0) {
-      console.log('mainTopics', Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year)));
-
-      return this.scale(Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year)));
-    } else {
-      return this.scale(Math.min(...this.timelineEvents.map(event => event.event_date.year)));
-    }
-  }
-
-  getEndYear() {
-    if (this.mainTopics.length === 0 && this.timelineEvents.length === 0) {
-      console.error('No events to display.');
-      return null;
-    } else if (this.timelineEvents.length === 0) {
-      return this.scale(Math.max(...this.mainTopics.map(mainTopic => mainTopic.end_date.year)));
-    } else {
-      return this.scale(Math.max(...this.timelineEvents.map(event => event.event_date.year)));
-    }
+  onTimelineEventClick(event: TimelineEvent) {
+    this.sidebarService.selectedTimelineEvent.next(event);
+    this.sidebarService.selectedMainTopic.next(null);
+    this.isSidebarVisible = true;
   }
 }
