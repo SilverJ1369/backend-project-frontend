@@ -3,10 +3,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 
 import { MainTopicService } from '../../../core/services/main-topic.service';
+import { CategoryService } from '../../../core/services/category.service';
+
 import { ModalComponent } from '../../../shared/modal/modal.component';
 import { Category } from '../../../shared/models/category';
-import { CategoryService } from '../../../core/services/category.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-main-topic-form',
@@ -18,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
 export class MainTopicFormComponent implements OnInit{
   categories: Category[] = [];
 
-  editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  editMode: boolean = false;
 
   mainTopicForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -46,6 +46,9 @@ export class MainTopicFormComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
+    this.editMode = this.mainTopicService.editMode.value;
+    console.log('editMode', this.editMode);
+
     this.categoryService.getCategories().subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
@@ -102,6 +105,9 @@ export class MainTopicFormComponent implements OnInit{
         console.error('Error creating category:', error);
       }
     });
+  }
+
+  editLocation() {
 
   }
 

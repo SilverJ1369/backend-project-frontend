@@ -1,8 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MainTopic } from '../models/main-topic';
 import { TimelineEvent } from '../models/timeline-event';
 import { SidebarService } from '../../core/services/sidebar.service';
 import { Subscription } from 'rxjs';
+import { MainTopicService } from '../../core/services/main-topic.service';
+import { TimelineEventService } from '../../core/services/timeline-event.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +20,11 @@ export class SidebarComponent implements OnInit{
   timelineEvent!: TimelineEvent
   private subscriptions: Subscription[] = [];
 
-  constructor(private sidebarService: SidebarService) { }
+  constructor(
+    private sidebarService: SidebarService,
+    private mainTopicService: MainTopicService,
+    private timelineEventService: TimelineEventService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -28,6 +35,25 @@ export class SidebarComponent implements OnInit{
         this.timelineEvent = event!;
       })
     );
+  }
+
+  editMainTopic(topicID: number) {
+    this.mainTopicService.editMode.next(true);
+    console.log(topicID);
+    this.router.navigate(['/main-topic-form']);
+
+  }
+
+  deleteMainTopic(topicID: number) {
+    this.mainTopicService.deleteMainTopic(topicID);
+  }
+
+  editTimelineEvent(eventID: number) {
+
+  }
+
+  deleteTimelineEvent(eventID: number) {
+    this.timelineEventService.deleteTimelineEvent(eventID);
   }
 
 }

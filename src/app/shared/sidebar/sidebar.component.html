@@ -1,10 +1,9 @@
-<div class="buttons">
-  <button>Edit</button>
-  <button>Delete</button>
-</div>
-
 <!-- if main topic clicked -->
 @if(mainTopic) {
+  <div class="buttons">
+    <button (click)="editMainTopic(mainTopic.id)">Edit</button>
+    <button (click)="deleteMainTopic(mainTopic.id)">Delete</button>
+  </div>
   <div class="main-topic-details">
     <p>{{ mainTopic.category.name }}</p>
     <h2>{{ mainTopic.name }}</h2>
@@ -17,6 +16,10 @@
 
 <!-- if timeline event clicked -->
 @if(timelineEvent) {
+  <div class="buttons">
+    <button (click)="editTimelineEvent(timelineEvent.id)">Edit</button>
+    <button (click)="deleteTimelineEvent(timelineEvent.id)">Delete</button>
+  </div>
   <div class="timeline-event-details">
     <h3>{{ timelineEvent.location.state }}, {{ timelineEvent.location.city }}, {{ timelineEvent.location.country }}</h3>
     <p>{{ timelineEvent.details }}</p>

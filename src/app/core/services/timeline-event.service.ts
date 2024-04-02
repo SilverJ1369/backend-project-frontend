@@ -20,12 +20,12 @@ export class TimelineEventService {
     return this.http.post<TimelineEvent>(`${environment.apiUrl}/timeline_events`, data);
   }
 
-  updateTimelineEvent(timelineEvent: TimelineEvent) {
-    return this.http.put(`${environment.apiUrl}/timeline_events`, timelineEvent);
+  updateTimelineEvent(timelineEventID: number): Observable<TimelineEvent> {
+    return this.http.put<TimelineEvent>(`${environment.apiUrl}/timeline_events`, timelineEventID);
   }
 
-  deleteTimelineEvent(timelineEvent: TimelineEvent) {
-    return this.http.delete(`${environment.apiUrl}/timeline_events/${timelineEvent.id}`);
+  deleteTimelineEvent(timelineEventID: number) {
+    this.http.delete(`${environment.apiUrl}/timeline_events/${timelineEventID}`);
   }
 
   searchByMainTopic(mainTopic: MainTopic): Observable<TimelineEvent[]> {

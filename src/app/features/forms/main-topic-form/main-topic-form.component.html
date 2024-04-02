@@ -1,11 +1,10 @@
 <div class="container">
-  <h1>New Main Topic</h1>
+  <h1>{{ editMode ? 'Edit Main Topic' : 'New Main Topic' }}</h1>
   <form [formGroup]="mainTopicForm" (ngsubmit)="onSubmit()" class="form">
     <label for="name">Name</label>
     <input type="text" formControlName="name" id="name" class="form-control" />
-    <label for="location">location</label>
-    <button (click)="openLocationModal()">Location</button>
-
+    <label for="location">Location</label>
+    <button (click)="editMode ? editLocation() : openLocationModal()">{{ editMode ? 'Edit Location' : 'Create or find Location'}}</button>
     <label for="category">Category</label>
     <select formControlName="category_id" id="category" class="form-control">
       @for(category of categories; track category.id) {
