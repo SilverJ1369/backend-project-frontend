@@ -6,6 +6,7 @@ import { MainTopicService } from '../../../core/services/main-topic.service';
 import { ModalComponent } from '../../../shared/modal/modal.component';
 import { Category } from '../../../shared/models/category';
 import { CategoryService } from '../../../core/services/category.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-main-topic-form',
@@ -16,6 +17,8 @@ import { CategoryService } from '../../../core/services/category.service';
 })
 export class MainTopicFormComponent implements OnInit{
   categories: Category[] = [];
+
+  editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   mainTopicForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
