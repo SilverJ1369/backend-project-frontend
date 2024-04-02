@@ -22,6 +22,9 @@ export class TimelineComponent implements OnInit{
   selectedMainTopic: MainTopic | null = null;
   selectedTimelineEvent: TimelineEvent | null = null;
   isSidebarVisible: boolean = false;
+  years: number[] = [];
+  eventYears: number[] = [];
+
 
   lineStart = 0;
   lineEnd = 100;
@@ -50,6 +53,12 @@ export class TimelineComponent implements OnInit{
         this.lineStart = Math.min(...this.mainTopics.map(mainTopic => mainTopic.start_date.year));
         this.lineEnd = Math.max(...this.mainTopics.map(mainTopic => mainTopic.end_date.year));
         this.scale.domain([this.lineStart, this.lineEnd]);
+        const startYear = this.lineStart
+        const endYear = this.lineEnd
+        const yearInterval = Math.round((endYear - startYear) / 5);
+        this.years = Array.from({length: 6}, (_, i) => startYear + i * yearInterval);
+        console.log('Years:', this.years);
+
       },
       error: (error) => {
         console.error('Error fetching main topics:', error);
@@ -67,6 +76,10 @@ export class TimelineComponent implements OnInit{
           this.timelineEventStart = Math.min(...events.map(event => event.event_date.year));
           this.timelineEventEnd = Math.max(...events.map(event => event.event_date.year));
           this.timelineEventScale.domain([this.timelineEventStart, this.timelineEventEnd]);
+          const startYear = this.timelineEventStart
+          const endYear = this.timelineEventEnd
+          const yearInterval = Math.round((endYear - startYear) / 5);
+          this.eventYears = Array.from({length: 6}, (_, i) => startYear + i * yearInterval);
           console.log('Events:', events);
         },
         error: (error) => {
