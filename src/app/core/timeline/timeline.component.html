@@ -12,7 +12,7 @@
       </g>
     }
     @for (mainTopic of mainTopics; track mainTopic.id) {
-      <circle [attr.cx]="scale(mainTopic.start_date.year)" cy="75" r="5" stroke="black" fill="white" (click)="onMainTopicClick(mainTopic)" />
+      <circle [attr.cx]="scale((mainTopic.start_date.year + mainTopic.end_date.year) / 2)" cy="75" r="5" stroke="black" fill="white" (click)="onMainTopicClick(mainTopic)" />
       <!-- Find way to display multiple main topics with same dates -->
     }
   </svg>
