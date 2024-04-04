@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: 30%; // specify a width
+  margin: 0 auto; // center the form
+  justify-content: space-between;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); // add a subtle shadow
+  padding: 20px; // add some padding
+  border-radius: 10px; // round the corners
+
+  input, textarea, select {
+    margin-bottom: 20px; // increase the bottom margin
+    padding: 15px; // increase the padding
+    border-radius: 5px; // round the corners
+    border: 1px solid #ccc;
+    font-size: 16px; // increase the font size
+    border-width: 0.5px; // half the border width
+    width: 30%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 15px;
+    height: 50px;
+  }
+
+  button {
+    padding: 15px 30px; // increase the padding
+    border-radius: 5px; // round the corners
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    font-size: 16px; // increase the font size
+    transition: background-color 0.3s ease; // animate the hover effect
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  label {
+    font-size: 32px;
+  }
+}
