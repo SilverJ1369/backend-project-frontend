@@ -1,26 +1,36 @@
 <div class="container">
   <h1>{{ editMode ? 'Edit Main Topic' : 'New Main Topic' }}</h1>
   <form [formGroup]="mainTopicForm" (ngsubmit)="onSubmit()" class="form">
-    <label for="name">Name</label>
-    <input type="text" formControlName="name" id="name" class="form-control" />
-    <label for="location">Location</label>
-    <button (click)="editMode ? editLocation() : openLocationModal()">{{ editMode ? 'Edit Location' : 'Create or find Location'}}</button>
-    <label for="category">Category</label>
-    <select formControlName="category_id" id="category" class="form-control">
-      @for(category of categories; track category.id) {
-        <option [value]="category.id">{{category.name}}</option>
-      }
-    </select>
-    <label for="startDate">Start Date</label>
-    <button (click)="openStartDateModal()">Event Date</button>
-    <label for="endDate">End Date</label>
-    <button (click)="openEndDateModal()">Event Date</button>
-    <button type="submit" (click)="checkValue()">Submit</button>
+    <div class="button-container">
+      <label for="name">Name</label>
+      <input type="text" formControlName="name" id="name" class="form-control" />
+    </div>
+    <div class="button-container">
+      <label for="location">Location</label>
+      <button (click)="editMode ? editLocation() : openLocationModal()">{{ editMode ? 'Edit Location' : 'Create or find Location'}}</button>
+    </div>
+    <div class="button-container">
+      <label for="category">Category</label>
+      <select formControlName="category_id" id="category" class="form-control">
+        @for(category of categories; track category.id) {
+          <option [value]="category.id">{{category.name}}</option>
+        }
+      </select>
+    </div>
+    <div class="button-container">
+      <label for="startDate">Start Date</label>
+      <button (click)="openStartDateModal()">Event Date</button>
+    </div>
+    <div class="button-container">
+      <label for="endDate">End Date</label>
+      <button (click)="openEndDateModal()">Event Date</button>
+    </div>
+    <button type="submit" (click)="checkValue()" style="margin-bottom: 15px;">Submit</button>
   </form>
 
   <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
     <input type="text" formControlName="name" placeholder="Category Name"/>
-    <button type="submit">Create Category</button>
+    <button type="submit" style="margin-left: 30px;">Create Category</button>
   </form>
 </div>
 

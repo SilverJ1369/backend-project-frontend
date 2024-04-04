@@ -18,3 +18,22 @@
   padding: 20px;
   box-sizing: border-box;
 }
+
+svg {
+  margin-left: 5%;
+
+  line {
+    stroke: black;
+    padding-left: 5px;
+  }
+
+  circle {
+    stroke: black;
+    fill: white;
+    cursor: pointer;
+
+    &:hover {
+      fill: lightgray;
+    }
+  }
+}
