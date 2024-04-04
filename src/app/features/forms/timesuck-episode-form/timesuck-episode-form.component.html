@@ -1,26 +1,33 @@
-<div class="form">
+<div class="container">
+  <h1>Timesuck Episode Form</h1>
   <form [formGroup]="timesuckEpisodeForm" (ngSubmit)="onSubmit()">
-    <label for="episode_number">Epiaode Number</label>
-    <input formControlName="episode_number" id="name" type="text" class="form-control">
-    <label for="main_topic_id">Main Topic</label>
-    <input
-      list="main-topics-list"
-      formControlName="main_topic_id"
-      id="main_topic_id"
-      name="main_topic_id"
-      placeholder="Search for Main topic"
-      >
-    <datalist id="main-topics-list">
-      @for(mainTopic of mainTopics; track mainTopic.id) {
-        <option [value]="mainTopic.id">{{ mainTopic.name }}</option>
-      }
-    </datalist>
-    <label for="category">Category</label>
-    <select formControlName="category_id" id="category" class="form-control">
-      @for(category of categories; track category.id) {
-        <option [value]="category.id">{{category.name}}</option>
-      }
-    </select>
+    <div class="button-container">
+      <label for="episode_number">Episode Number</label>
+      <input formControlName="episode_number" id="name" type="text" class="form-control">
+    </div>
+    <div class="button-container">
+      <label for="main_topic_id">Main Topic</label>
+      <input
+        list="main-topics-list"
+        formControlName="main_topic_id"
+        id="main_topic_id"
+        name="main_topic_id"
+        placeholder="Search for Main topic"
+        >
+      <datalist id="main-topics-list">
+        @for(mainTopic of mainTopics; track mainTopic.id) {
+          <option [value]="mainTopic.id">{{ mainTopic.name }}</option>
+        }
+      </datalist>
+    </div>
+    <div class="button-container">
+      <label for="category">Category</label>
+      <select formControlName="category_id" id="category" class="form-control">
+        @for(category of categories; track category.id) {
+          <option [value]="category.id">{{category.name}}</option>
+        }
+      </select>
+    </div>
     <button type="submit">Submit</button>
   </form>
 </div>
