@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SidebarService } from '../../core/services/sidebar.service';
+import { AuthService } from '../../core/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -9,18 +11,21 @@ import { SidebarService } from '../../core/services/sidebar.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit, OnDestroy{
 
-  sidebarOpened = false;
+  sidebarOpenedSub: Subscription = new Subscription();
+  sidebarOpened: boolean = false;
 
-  constructor(private sidebarService:SidebarService) { }
+  constructor(private sidebarService:SidebarService, public authService: AuthService) { }
 
   ngOnInit() {
-    this.sidebarService.sidebarOpened.subscribe(opened => {
+    this.sidebarOpenedSub = this.sidebarService.sidebarOpened.subscribe(opened => {
       this.sidebarOpened = opened;
-      console.log('Sidebar opened:', opened);
-      
     });
+  }
+
+  ngOnDestroy() {
+    this.sidebarOpenedSub.unsubscribe();
   }
 
 }
