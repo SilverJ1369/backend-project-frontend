@@ -58,18 +58,20 @@ export class TimelineComponent implements OnInit{
         const yearInterval = Math.round((endYear - startYear) / 5);
         this.years = Array.from({length: 6}, (_, i) => startYear + i * yearInterval);
         console.log('Years:', this.years);
-
       },
       error: (error) => {
         console.error('Error fetching main topics:', error);
       }
+    });
+    this.sidebarService.sidebarOpened.subscribe(opened => {
+      this.isSidebarVisible = opened;
     });
   }
 
   onMainTopicClick(topic: MainTopic) {
     this.sidebarService.selectedMainTopic.next(topic);
     this.sidebarService.selectedTimelineEvent.next(null);
-    this.isSidebarVisible = true;
+    this.sidebarService.sidebarOpened.next(true);
       this.timelineEventService.searchByMainTopic(topic).subscribe({
         next: (events: TimelineEvent[]) => {
           this.timelineEvents = events;

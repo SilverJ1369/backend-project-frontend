@@ -3,8 +3,12 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'timeline',
+    redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./core/home-search/home-search.component').then(m => m.HomeSearchComponent),
   },
   {
     path: 'timeline',

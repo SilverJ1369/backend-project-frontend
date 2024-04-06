@@ -10,6 +10,7 @@ export class SidebarService {
 
   selectedMainTopic: BehaviorSubject<MainTopic | null> = new BehaviorSubject<MainTopic | null>(null);
   selectedTimelineEvent: BehaviorSubject<TimelineEvent | null> = new BehaviorSubject<TimelineEvent | null>(null);
+  sidebarOpened: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 }
