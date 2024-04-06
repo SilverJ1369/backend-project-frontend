@@ -2,20 +2,55 @@
   display: flex;
   flex-direction: column;
   margin: 20px;
-  width: 30%; // specify a width
+  width: 90%; // specify a width
   margin: 0 auto; // center the form
   justify-content: space-between;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); // add a subtle shadow
   padding: 20px; // add some padding
   border-radius: 10px; // round the corners
 
+  .search-form {
+
+    input {
+      width: 75%;
+
+      @media (min-width: 768px) {
+        width: 20%; // make the input take up 75% of the width on medium screens
+      }
+
+      @media (min-width: 1024px) {
+        width: 50%; // make the input take up 50% of the width on large screens
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    width: 75%; // make the form wider on larger screens
+  }
+
+  @media (min-width: 1024px) {
+    width: 50%; // make the form even wider on larger screens
+  }
+
+  @media (min-width: 1440px) {
+    width: 30%; // make the form even wider on larger screens
+  }
+
   input, textarea, select {
-    padding: 15px; // increase the padding
+    padding: 5px; // increase the padding
     border-radius: 5px; // round the corners
     border: 1px solid #ccc;
     font-size: 16px; // increase the font size
     border-width: 0.5px; // half the border width
-    width: 30%;
+    width: 35%;
+
+    @media (min-width: 768px) {
+      width: 45%; // make the input full width on larger screens
+    }
+
+    @media (min-width: 1024px) {
+      width: 50%; // make the input half width on larger screens
+    }
   }
 
   .button-container {
@@ -23,7 +58,8 @@
     justify-content: space-between;
     flex-direction: row;
     margin: 15px;
-    height: 50px;
+    height: 5%;
+    align-items: center;
   }
 
   button {
@@ -42,6 +78,18 @@
   }
 
   label {
-    font-size: 32px;
+    font-size: 24px;
+
+    @media (min-width: 768px) {
+      font-size: 26px; // increase the font size on larger screens
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 28px; // increase the font size on larger screens
+    }
+
+    @media (min-width: 1440px) {
+      font-size: 32px; // increase the font size on larger screens
+    }
   }
 }
