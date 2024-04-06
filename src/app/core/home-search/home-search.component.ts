@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../../shared/models/category';
+import { SidebarService } from '../services/sidebar.service';
 
 @Component({
   selector: 'app-home-search',
@@ -25,7 +26,10 @@ export class HomeSearchComponent implements OnInit{
   };
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private sidebarService: SidebarService
+  ) { }
 
 
   search() {
@@ -34,6 +38,7 @@ export class HomeSearchComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.sidebarService.sidebarOpened.next(false);
     this.categoryService.getCategories().subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
