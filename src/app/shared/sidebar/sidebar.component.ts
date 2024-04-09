@@ -30,4 +30,7 @@ export class SidebarComponent implements OnInit{
     );
   }
 
+  toggleSidebar(): void {
+    this.sidebarService.sidebarOpened.next(false);
+  }
 }

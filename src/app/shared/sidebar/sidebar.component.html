@@ -1,7 +1,4 @@
-<div class="buttons">
-  <button>Edit</button>
-  <button>Delete</button>
-</div>
+<button (click)="toggleSidebar()" class="sidebar-toggle-button">></button>
 
 <!-- if main topic clicked -->
 @if(mainTopic) {
@@ -11,7 +8,6 @@
     <h3>{{ mainTopic.location.state }}, {{ mainTopic.location.city }}, {{ mainTopic.location.country }}</h3>
     <p>{{ mainTopic.start_date.month }}-{{ mainTopic.start_date.day }}-{{ mainTopic.start_date.year }}</p>
     <p>{{ mainTopic.end_date.month }}-{{ mainTopic.end_date.day }}-{{ mainTopic.end_date.year }}</p>
-
   </div>
 }
 
@@ -24,3 +20,9 @@
     <p>{{ timelineEvent.main_topic.name }}</p>
   </div>
 }
+
+<div class="buttons">
+  <button>Edit</button>
+  <button>Delete</button>
+</div>
+
