@@ -6,6 +6,8 @@ import { MainTopicService } from '../services/main-topic.service';
 import { TimelineEventService } from '../services/timeline-event.service';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { SidebarService } from '../services/sidebar.service';
+import { SearchService } from '../services/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timeline',
@@ -25,7 +27,6 @@ export class TimelineComponent implements OnInit{
   years: number[] = [];
   eventYears: number[] = [];
 
-
   lineStart = 0;
   lineEnd = 100;
   timelineEventStart = 0;
@@ -44,7 +45,8 @@ export class TimelineComponent implements OnInit{
   constructor(
     private mainTopicService: MainTopicService,
     private timelineEventService: TimelineEventService,
-    private sidebarService: SidebarService) { }
+    private sidebarService: SidebarService,
+    private searchService: SearchService) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -54,7 +56,7 @@ export class TimelineComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.mainTopicService.getMainTopics().subscribe({
+    this.searchService.searchResults.subscribe({
       next: (mainTopics: MainTopic[]) => {
         this.mainTopics = mainTopics;
         console.log('Main topics:', mainTopics);
