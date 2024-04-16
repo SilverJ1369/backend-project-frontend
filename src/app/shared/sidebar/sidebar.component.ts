@@ -56,4 +56,7 @@ export class SidebarComponent implements OnInit{
     this.timelineEventService.deleteTimelineEvent(eventID);
   }
 
+  toggleSidebar(): void {
+    this.sidebarService.sidebarOpened.next(false);
+  }
 }

@@ -1,12 +1,3 @@
-.timeline {
-  display: flex;
-  overflow-x: auto;
-}
-
-.event {
-  margin-right: 20px;
-}
-
 .sidebar {
   position: fixed;
   right: 0;
@@ -37,3 +28,11 @@ svg {
     }
   }
 }
+
+  .outer {
+    display: block; // hide the SVG by default
+
+    @media (min-width: 1024px) { // adjust this value as needed
+      display: block; // display the SVG on large screens
+    }
+  }

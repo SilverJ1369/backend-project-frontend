@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { MainTopic } from '../../shared/models/main-topic';
 import { TimelineEvent } from '../../shared/models/timeline-event';
@@ -6,6 +6,8 @@ import { MainTopicService } from '../services/main-topic.service';
 import { TimelineEventService } from '../services/timeline-event.service';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { SidebarService } from '../services/sidebar.service';
+import { SearchService } from '../services/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timeline',
@@ -25,7 +27,6 @@ export class TimelineComponent implements OnInit{
   years: number[] = [];
   eventYears: number[] = [];
 
-
   lineStart = 0;
   lineEnd = 100;
   timelineEventStart = 0;
@@ -33,20 +34,29 @@ export class TimelineComponent implements OnInit{
 
   linePosition = 75; // Y position of the line
   padding = 10;
+  screenWidth = window.innerWidth * 0.8; // Width of the screen
   scale: any = d3.scaleLinear()
   .domain([this.lineStart, this.lineEnd]) // Domain: starting and ending needs to be dynamically generated based on array of events
-  .range([this.padding, 1600]); // Range: range of pixels (adjust as needed)
+  .range([this.padding, this.screenWidth - this.padding]); // Range: range of pixels (adjust as needed)
   timelineEventScale: any = d3.scaleLinear()
   .domain([this.timelineEventStart, this.timelineEventEnd]) // Domain: starting and ending needs to be dynamically generated based on array of events
-  .range([this.padding, 1600]); // Range: range of pixels (adjust as needed)
+  .range([this.padding, this.screenWidth - this.padding]); // Range: range of pixels (adjust as needed)
 
   constructor(
     private mainTopicService: MainTopicService,
     private timelineEventService: TimelineEventService,
-    private sidebarService: SidebarService) { }
+    private sidebarService: SidebarService,
+    private searchService: SearchService) { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.screenWidth = window.innerWidth * 0.8;
+    this.scale.range([this.padding, this.screenWidth - this.padding]);
+    this.timelineEventScale.range([this.padding, this.screenWidth - this.padding]);
+  }
 
   ngOnInit(): void {
-    this.mainTopicService.getMainTopics().subscribe({
+    this.searchService.searchResults.subscribe({
       next: (mainTopics: MainTopic[]) => {
         this.mainTopics = mainTopics;
         console.log('Main topics:', mainTopics);
@@ -58,18 +68,20 @@ export class TimelineComponent implements OnInit{
         const yearInterval = Math.round((endYear - startYear) / 5);
         this.years = Array.from({length: 6}, (_, i) => startYear + i * yearInterval);
         console.log('Years:', this.years);
-
       },
       error: (error) => {
         console.error('Error fetching main topics:', error);
       }
+    });
+    this.sidebarService.sidebarOpened.subscribe(opened => {
+      this.isSidebarVisible = opened;
     });
   }
 
   onMainTopicClick(topic: MainTopic) {
     this.sidebarService.selectedMainTopic.next(topic);
     this.sidebarService.selectedTimelineEvent.next(null);
-    this.isSidebarVisible = true;
+    this.sidebarService.sidebarOpened.next(true);
       this.timelineEventService.searchByMainTopic(topic).subscribe({
         next: (events: TimelineEvent[]) => {
           this.timelineEvents = events;

@@ -1,0 +1,25 @@
+<h1>Welcome to the Ultimate Timeline</h1>
+<h3>Please search for a Main topic</h3>
+<p>You may use one or multiple search fields to search for the Main Topic you are looking for</p>
+
+<!-- options -->
+<div class="search-form">
+  <input type="text" class="search-box" [(ngModel)]="searchObj.search_name" placeholder="Search for a topic" />
+  <div class="button-container">
+    <label for="start">Start Year:</label>
+    <input type="number" [(ngModel)]="searchObj.search_start_year" id="start" name="start" placeholder="1975">
+  </div>
+  <div class="button-container">
+    <label for="end">End Year:</label>
+    <input type="number" [(ngModel)]="searchObj.search_end_year" id="end" name="end" placeholder="2004">
+  </div>
+  <div class="button-container">
+    <label for="category">Category</label>
+    <select id="category" class="form-control" [(ngModel)]="searchObj.search_category">
+      @for(category of categories; track category.id) {
+        <option [value]="category.id">{{category.name}}</option>
+      }
+    </select>
+  </div>
+  <button (click)="search()">Search</button>
+</div>

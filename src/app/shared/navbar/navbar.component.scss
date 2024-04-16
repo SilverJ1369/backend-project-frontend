@@ -1,8 +1,10 @@
 nav {
-  background-color: darkgrey;
-  padding: 10px;
+  background-color: rgb(21, 21, 21);
   display: flex;
   justify-content: space-around;
+  transition: width 0.3s ease;
+  width: 100%;
+  padding: 15px 0;
 
   a {
     color: #fff;
@@ -17,4 +19,8 @@ nav {
       color: #4caf50;
     }
   }
+}
+
+nav.sidebar-opened {
+  width: calc(100% - 300px); /* adjust as needed */
 }
