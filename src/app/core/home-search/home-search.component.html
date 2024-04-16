@@ -4,18 +4,18 @@
 
 <!-- options -->
 <div class="search-form">
-  <input type="text" class="search-box" [(ngModel)]="searchObj.searchTerm" placeholder="Search for a topic" />
+  <input type="text" class="search-box" [(ngModel)]="searchObj.search_name" placeholder="Search for a topic" />
   <div class="button-container">
     <label for="start">Start Year:</label>
-    <input type="number" [(ngModel)]="searchObj.searchStartYear" id="start" name="start" placeholder="1975">
+    <input type="number" [(ngModel)]="searchObj.search_start_year" id="start" name="start" placeholder="1975">
   </div>
   <div class="button-container">
     <label for="end">End Year:</label>
-    <input type="number" [(ngModel)]="searchObj.searchEndYear" id="end" name="end" placeholder="2004">
+    <input type="number" [(ngModel)]="searchObj.search_end_year" id="end" name="end" placeholder="2004">
   </div>
   <div class="button-container">
     <label for="category">Category</label>
-    <select id="category" class="form-control" [(ngModel)]="searchObj.searchCategory">
+    <select id="category" class="form-control" [(ngModel)]="searchObj.search_category">
       @for(category of categories; track category.id) {
         <option [value]="category.id">{{category.name}}</option>
       }
