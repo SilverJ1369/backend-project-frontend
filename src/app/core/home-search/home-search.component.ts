@@ -4,6 +4,7 @@ import { CategoryService } from '../services/category.service';
 import { SidebarService } from '../services/sidebar.service';
 import { SearchObj, SearchService } from '../services/search.service';
 import { Category } from '../../shared/models/category';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-search',
@@ -25,17 +26,14 @@ export class HomeSearchComponent implements OnInit{
   constructor(
     private categoryService: CategoryService,
     private sidebarService: SidebarService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
   ) { }
 
 
   search() {
-    console.log('searching for:', this.searchObj);
-    this.searchService.search(this.searchObj).subscribe({
-      next: (results) => {
-        console.log('Search results:', results);
-      }
-    });
+    this.searchService.search(this.searchObj);
+    this.router.navigate(['timeline'])
   }
 
   ngOnInit(): void {
