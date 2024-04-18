@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>New Main Topic</h1>
+  <h1>{{ editMode ? 'Edit Main Topic' : 'New Main Topic' }}</h1>
   <form [formGroup]="mainTopicForm" (ngsubmit)="onSubmit()" class="form">
     <div class="button-container">
       <label for="name">Name</label>
@@ -7,7 +7,7 @@
     </div>
     <div class="button-container">
       <label for="location">Location</label>
-      <button (click)="openLocationModal()">Add or Find Location</button>
+      <button (click)="editMode ? editLocation() : openLocationModal()">{{ editMode ? 'Edit Location' : 'Create or find Location'}}</button>
     </div>
     <div class="button-container">
       <label for="category">Category</label>

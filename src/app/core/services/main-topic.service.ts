@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { MainTopic } from '../../shared/models/main-topic';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MainTopic } from '../../shared/models/main-topic';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainTopicService {
+
+  editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
@@ -19,11 +21,11 @@ export class MainTopicService {
     return this.http.post<MainTopic>(`${environment.apiUrl}/main_topics`, data);
   }
 
-  updateMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
-    return this.http.patch<MainTopic>(`${environment.apiUrl}/main_topics`, mainTopic);
+  updateMainTopic(mainTopicID: number): Observable<MainTopic> {
+    return this.http.patch<MainTopic>(`${environment.apiUrl}/main_topics`, mainTopicID);
   }
 
-  deleteMainTopic(mainTopic: MainTopic): Observable<MainTopic> {
-    return this.http.delete<MainTopic>(`${environment.apiUrl}/main_topics/${mainTopic.id}`);
+  deleteMainTopic(mainTopicID: number){
+    this.http.delete<MainTopic>(`${environment.apiUrl}/main_topics/${mainTopicID}`);
   }
 }
