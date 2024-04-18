@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainTopic } from '../models/main-topic';
 import { TimelineEvent } from '../models/timeline-event';
 import { SidebarService } from '../../core/services/sidebar.service';
@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { MainTopicService } from '../../core/services/main-topic.service';
 import { TimelineEventService } from '../../core/services/timeline-event.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent implements OnInit, OnDestroy{
 
   mainTopic!: MainTopic
   timelineEvent!: TimelineEvent
@@ -24,7 +25,8 @@ export class SidebarComponent implements OnInit{
     private sidebarService: SidebarService,
     private mainTopicService: MainTopicService,
     private timelineEventService: TimelineEventService,
-    private router: Router) { }
+    private router: Router,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -39,9 +41,7 @@ export class SidebarComponent implements OnInit{
 
   editMainTopic(topicID: number) {
     this.mainTopicService.editMode.next(true);
-    console.log(topicID);
     this.router.navigate(['/main-topic-form']);
-
   }
 
   deleteMainTopic(topicID: number) {
@@ -58,5 +58,9 @@ export class SidebarComponent implements OnInit{
 
   toggleSidebar(): void {
     this.sidebarService.sidebarOpened.next(false);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

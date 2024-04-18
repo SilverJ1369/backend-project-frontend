@@ -28,9 +28,10 @@
     <p>{{ timelineEvent.main_topic.name }}</p>
   </div>
 }
-
-<div class="buttons">
-  <button>Edit</button>
-  <button>Delete</button>
-</div>
+@if(authService.isLoggedIn()) {
+  <div class="buttons">
+    <button>Edit</button>
+    <button>Delete</button>
+  </div>
+}
 
